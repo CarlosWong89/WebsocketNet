@@ -1,0 +1,6 @@
+@WebsocketNet_JwtAuth_HostAddress = http://localhost:5080
+
+GET {{WebsocketNet_JwtAuth_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

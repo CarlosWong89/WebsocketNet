@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Demo</title>
+</head>
+<body>
+
+    <h2>Login</h2>
+
+    Username:
+    <input id="username" value="admin">
+
+    <br><br>
+
+    Password:
+    <input id="password" type="password" value="123456">
+
+    <br><br>
+
+    <button onclick="login()">
+        Login
+    </button>
+
+    <hr>
+
+    Message:
+    <input id="message">
+
+    <button onclick="sendMessage()">
+        Send
+    </button>
+
+    <hr>
+
+    <div id="log"></div>
+
+    <script>
+
+        let ws;
+
+        // [docker setup] ws://127.0.0.1:8080/ws , ws://localhost:8080/ws
+        // [debug] refer launchSettings
+
+        const baseUrl = "127.0.0.1:8080";
+        // const baseUrl = "localhost:5080";
+
+        function log(msg) {
+            document.getElementById("log").innerHTML +=
+                msg + "<br>";
+        }
+
+        async function login() {
+            const username =
+                document.getElementById("username").value;
+
+            const password =
+                document.getElementById("password").value;
+
+            const response =
+                await fetch(
+                    `http://${baseUrl}/login`,
+                    // "http://localhost:5080/login",
+                    {
+                        method: "POST",
+                        headers:
+                        {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            username,
+                            password
+                        })
+                    });
+
+            if (!response.ok) {
+                alert("Login failed");
+                return;
+            }
+
+            const data =
+                await response.json();
+
+            log("Login success");
+
+            ws = new WebSocket(
+                    `ws://${baseUrl}/ws?token=${data.token}`  );
+            // ws = new WebSocket(
+            //     "ws://localhost:5080/ws?token=" + data.token);
+
+            ws.onopen = () => {
+                log("WebSocket connected");
+            };
+
+            ws.onmessage = e => {
+                log("Received: " + e.data);
+            };
+
+            ws.onclose = () => {
+                log("WebSocket closed");
+            };
+        }
+
+        function sendMessage() {
+            if (!ws) {
+                alert("Not connected");
+                return;
+            }
+
+            let text =
+                document.getElementById("message").value;
+
+            ws.send(text);
+
+            log("Sent: " + text);
+        }
+
+    </script>
+
+</body>
+</html>
