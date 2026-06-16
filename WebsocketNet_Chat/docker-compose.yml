@@ -1,0 +1,12 @@
+﻿version: "3.9"
+
+services:
+  wsnet_chat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wsnet_chat
+    environment:
+      - NODE_NAME=wsnet_chat
+    ports:
+      - "8080:8080"
