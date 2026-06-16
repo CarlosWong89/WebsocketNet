@@ -1,0 +1,6 @@
+@WebsocketNet_Simple_HostAddress = http://localhost:5070
+
+GET {{WebsocketNet_Simple_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
