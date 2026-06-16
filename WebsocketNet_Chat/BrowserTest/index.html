@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+    <h2>WebSocket Chat Room</h2>
+
+    <input id="channel" placeholder="channel (e.g. sports)" />
+    <button onclick="join()">Join</button>
+
+    <br><br>
+
+    <input id="msg" placeholder="message" />
+    <button onclick="send()">Send</button>
+
+    <pre id="output"></pre>
+
+    <script>
+        let ws;
+        let currentChannel = "";
+
+        // [docker setup] ws://127.0.0.1:8080/ws , ws://localhost:8080/ws
+        // [debug] refer launchSettings
+
+        const baseUrl = "127.0.0.1:8080";
+        //const baseUrl = "localhost:5028";
+
+        ws = new WebSocket(`ws://${baseUrl}/ws`);
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            document.getElementById("output").innerText +=
+                `[${data.channel}] ${data.text}\n`;
+        };
+
+        function join() {
+            currentChannel = document.getElementById("channel").value;
+
+            ws.send(JSON.stringify({
+                type: "join",
+                channel: currentChannel
+            }));
+        }
+
+        function send() {
+            const text = document.getElementById("msg").value;
+
+            ws.send(JSON.stringify({
+                type: "message",
+                channel: currentChannel,
+                text: text
+            }));
+        }
+    </script>
+</body>
+</html>
