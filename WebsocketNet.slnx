@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="WebsocketNet_JwtAuth/WebsocketNet_JwtAuth.csproj" Id="21afd736-e14d-40e6-8ef3-c94d340367a4" />
   <Project Path="WebsocketNet_LoadBalance/WebsocketNet_LoadBalance.csproj" />
   <Project Path="WebsocketNet_Redis/WebsocketNet_Redis.csproj" Id="6cf2ac65-646c-4cd4-acaf-10babee0d7aa" />
   <Project Path="WebsocketNet_Simple/WebsocketNet_Simple.csproj" />

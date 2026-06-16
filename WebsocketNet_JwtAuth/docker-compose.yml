@@ -1,0 +1,12 @@
+﻿version: "3.9"
+
+services:
+  wsnet_jwt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wsnet_jwt
+    environment:
+      - NODE_NAME=wsnet_jwt
+    ports:
+      - "8080:8080"
