@@ -1,0 +1,6 @@
+@WebsocketNet_Redis_HostAddress = http://localhost:5195
+
+GET {{WebsocketNet_Redis_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
