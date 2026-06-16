@@ -1,0 +1,12 @@
+﻿version: "3.9"
+
+services:
+  wsnet_simple:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wsnet_simple
+    environment:
+      - NODE_NAME=wsnet_simple
+    ports:
+      - "8080:8080"

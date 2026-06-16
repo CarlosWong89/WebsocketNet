@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+    <input id="msg" />
+    <button onclick="send()">Send</button>
+
+    <pre id="log"></pre>
+
+    <script>
+
+        // [docker setup] ws://127.0.0.1:8080/ws , ws://localhost:8080/ws
+        // [debug] refer launchSettings ws://http://localhost:5070/ws
+
+        const ws = new WebSocket("ws://127.0.0.1:8080/ws");
+
+        ws.onmessage = (event) => {
+            document.getElementById("log").innerText += event.data + "\n";
+        };
+
+        function send() {
+            const msg = document.getElementById("msg").value;
+            ws.send(msg);
+        }
+    </script>
+</body>
+</html>
